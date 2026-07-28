@@ -1,0 +1,5 @@
+shell4.build
+shell4.dist
+shell4.onefile-build
+shell4-linux-amd64
+shell4-windows-amd64.exe
