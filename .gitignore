@@ -3,3 +3,7 @@ shell4.dist
 shell4.onefile-build
 shell4-*-linux-amd64
 shell4-*-windows-amd64.exe
+*.so
+*.dll
+*.dylib
+*.debug
