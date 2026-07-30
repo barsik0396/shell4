@@ -1,4 +1,7 @@
-import sys, traceback, os
+import sys
+import traceback
+import os
+from .src import shell4
 def exception(_, value, exc_traceback):
     print("shell4 crashed. this isn't your problem; you have nothing to do with it.")
     print("debugging information:")
@@ -12,5 +15,4 @@ def exception(_, value, exc_traceback):
     print(f"Error: {type(value).__name__}: {value}")
     sys.exit(1)
 sys.excepthook = exception
-from src import shell4
 shell4.main()
