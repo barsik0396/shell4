@@ -1,7 +1,9 @@
 import os
-import sys
 import platform
+import sys
+
 from .errors import CatsError
+
 
 def main():
     print("welcome to \x1b[32mshell4\x1b[0m version v0.2.0p1!")

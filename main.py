@@ -1,7 +1,10 @@
+import os
 import sys
 import traceback
-import os
+
 from .src import shell4
+
+
 def exception(_, value, exc_traceback):
     print("shell4 crashed. this isn't your problem; you have nothing to do with it.")
     print("debugging information:")
