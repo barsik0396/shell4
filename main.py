@@ -2,7 +2,7 @@ import os
 import sys
 import traceback
 
-from .src import shell4
+from src import shell4
 
 
 def exception(_, value, exc_traceback):
