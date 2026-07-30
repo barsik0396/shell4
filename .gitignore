@@ -7,3 +7,4 @@ shell4-*-windows-amd64.exe
 *.dll
 *.dylib
 *.debug
+__pycache__
