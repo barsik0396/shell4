@@ -8,3 +8,7 @@ shell4-*-windows-amd64.exe
 *.dylib
 *.debug
 __pycache__
+*.deb
+*.rpm
+*.msi
+bin
