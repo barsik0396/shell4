@@ -1,0 +1,13 @@
+version: 2
+updates:
+  - package-ecosystem: pip
+    schedule:
+      interval: daily
+      time: "19:36"
+      timezone: "Europe/Riga"
+    directory: "."
+    labels:
+      - dependencies
+      - pip-deps
+    open-pull-requests-limit: 10
+    target-branch: main
