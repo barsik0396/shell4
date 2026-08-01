@@ -2,16 +2,17 @@ import os
 import platform
 import sys
 
+from . import send_telemetry
 from .errors import CatsError
-from .       import send_telemetry
 
 try:
     if not send_telemetry.is_sent():
         send_telemetry.prep()
         send_telemetry.send()
-except:
+except Exception:                     # noqa: BLE001
     print("\r(  ✗  ) Failed to send telemetry")
-    open(os.path.expanduser("~/.shell4/runfile"), "w")
+    with open(os.path.expanduser("~/.shell4/runfile"), "w") as f:
+        f.write("meow")
 
 def main():
     print("welcome to \x1b[32mshell4\x1b[0m version v0.2.0p1!")
