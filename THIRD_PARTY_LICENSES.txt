@@ -1,0 +1,23 @@
+Third-party deps:
+
+  -  requests
+     License: Apache-2.0
+     See:     /licenses/requests/LICENSE
+     See:     /licenses/requests/NOTICE
+    |
+    |-- certifi
+    |   License: MPL-2.0
+    |   See:     /licenses/certifi/LICENSE
+    |
+    |-- charset-normalizer
+    |   License: MIT
+    |   See:     /licenses/charset-normalizer/LICENSE
+    |
+    |-- idna
+    |   License: BSD-3 Clause
+    |   See:     /licenses/idna/LICENSE
+    |
+    |-- urllib3
+    |   License: MIT
+    |   See:     /licenses/urllib3/LICENSE
+
