@@ -13,4 +13,4 @@ jobs:
         steps:
             - uses: actions/checkout@v4.0.0
             - name: Run linter
-              uses: astral-sh/ruff-action@v4.0.0
+              uses: astral-sh/ruff-action@v4.1.0
