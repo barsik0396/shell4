@@ -15,7 +15,7 @@ except Exception:                     # noqa: BLE001
         f.write("meow")
 
 def main():
-    print("welcome to \x1b[32mshell4\x1b[0m version v0.2.0p1!")
+    print("welcome to \x1b[32mshell4\x1b[0m version v0.2.0p2!")
     while True:
         inp = input("shell4# \x1b[32m")
         print("\r\x1b[0m\r", end="", flush=True)
@@ -29,7 +29,7 @@ def main():
         elif inp == "platform":
             print(platform.platform())
         elif inp == "version":
-            print("shell4 version v0.2.0p1")
+            print("shell4 version v0.2.0p2")
         elif inp == "help":
             print("Available commands:")
             print("  help        show this help")
