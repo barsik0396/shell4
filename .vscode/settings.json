@@ -1,0 +1,19 @@
+{
+    "files.exclude": {
+        "**/.ruff_cache": true,
+        "**/__pycache__": true,
+        "**/System Volume Information": true
+    },
+    "material-icon-theme.files.associations": {
+        "THIRD_PARTY_LICENSES.txt": "license",
+        "NOTICE": "license",
+        "PRIVACY.md": "lock",
+        "control": "document",
+        "shell4": "console",
+        "install.sh": "installation"
+    },
+    "editor.smoothScrolling": true,
+    "editor.cursorSmoothCaretAnimation": "on",
+    "editor.cursorBlinking": "phase",
+    "terminal.integrated.defaultProfile.linux": "fish"
+}
