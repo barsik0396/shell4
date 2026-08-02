@@ -12,3 +12,6 @@ __pycache__
 *.rpm
 *.msi
 bin
+sign.sh
+*.sig
+shell4-release-key.gpg
