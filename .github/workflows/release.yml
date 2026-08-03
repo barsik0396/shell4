@@ -1,0 +1,110 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      version:
+        required: false
+        type: string
+
+jobs:
+  check-trigger:
+    runs-on: ubuntu-latest
+    outputs:
+      should_release: ${{ steps.check.outputs.should_release }}
+      version: ${{ steps.check.outputs.version }}
+    steps:
+      - name: Check if this run should produce a release
+        id: check
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "should_release=true" >> "$GITHUB_OUTPUT"
+            echo "version=${{ inputs.version }}" >> "$GITHUB_OUTPUT"
+          else
+            COMMIT_MSG=$(echo "${{ github.event.head_commit.message }}")
+            if [[ "$COMMIT_MSG" == release:\ * ]]; then
+              echo "should_release=true" >> "$GITHUB_OUTPUT"
+              VERSION=$(echo "$COMMIT_MSG" | sed -n 's/^release: *//p' | head -n1 | awk '{print $1}')
+              echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+            else
+              echo "should_release=false" >> "$GITHUB_OUTPUT"
+            fi
+          fi
+
+  build:
+    needs: check-trigger
+    if: needs.check-trigger.outputs.should_release == 'true'
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            target: linux
+            entry_point: shell4.py
+            artifact_ext: ""
+          - os: windows-latest
+            target: windows
+            entry_point: main.py
+            artifact_ext: ".exe"
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install nuitka
+
+      - name: Install patchelf (Linux)
+        if: matrix.target == 'linux'
+        run: sudo apt-get update && sudo apt-get install -y patchelf
+
+      - name: Build binary with Nuitka
+        run: |
+          python3 -m nuitka --standalone --onefile ${{ matrix.entry_point }} --output-file=shell4-${{ needs.check-trigger.outputs.version }}-${{ matrix.target }}-amd64${{ matrix.artifact_ext }}
+          mkdir -p dist
+          mv shell4-${{ needs.check-trigger.outputs.version }}-${{ matrix.target }}-amd64${{ matrix.artifact_ext }} dist/
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: shell4-${{ matrix.target }}
+          path: dist/shell4-${{ needs.check-trigger.outputs.version }}-${{ matrix.target }}-amd64${{ matrix.artifact_ext }}
+          if-no-files-found: error
+
+  release:
+    needs: [check-trigger, build]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download all build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+
+      - name: Prepare release files
+        run: |
+          mkdir -p release-files
+          find artifacts -type f -exec cp {} release-files/ \;
+          ls -la release-files
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ needs.check-trigger.outputs.version }}
+          name: ${{ needs.check-trigger.outputs.version }}
+          files: release-files/*
