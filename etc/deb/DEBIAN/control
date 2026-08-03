@@ -1,9 +1,8 @@
 Package: shell4
-Version: 0.2.0-1
+Version: 0.2.0-3
 Architecture: amd64
 Maintainer: barsik0396 <barsik0396@proton.me>
 Description: custom shell
 Depends: libc6
 Section: devel
-Installed-Size: 4318
 Multi-Arch: same
