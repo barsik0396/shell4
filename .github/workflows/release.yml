@@ -76,7 +76,7 @@ jobs:
           mv shell4-${{ needs.check-trigger.outputs.version }}-${{ matrix.target }}-amd64${{ matrix.artifact_ext }} dist/
 
       - name: Upload build artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: shell4-${{ matrix.target }}
           path: dist/shell4-${{ needs.check-trigger.outputs.version }}-${{ matrix.target }}-amd64${{ matrix.artifact_ext }}
