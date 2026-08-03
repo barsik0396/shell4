@@ -1,8 +1,9 @@
 # shell4 changelog
 
-## v0.2.0-preview.2 [dev]
+## v0.2.0-preview.2
 ### added
 1. telemetry
+2. basic file operations: `cd`, `where`, `touch`, `read`, `rm`
 
 ## v0.2.0-preview.1 [Jul 30, 2026, 5:28 PM GMT+3]
 ### added
