@@ -71,7 +71,7 @@ jobs:
 
       - name: Build binary with Nuitka
         run: |
-          python3 -m nuitka --standalone --onefile ${{ matrix.entry_point }} --output-file=shell4-${{ needs.check-trigger.outputs.version }}-${{ matrix.target }}-amd64${{ matrix.artifact_ext }}
+          python3 -m nuitka --standalone --onefile --assume-yes-for-downloads ${{ matrix.entry_point }} --output-file=shell4-${{ needs.check-trigger.outputs.version }}-${{ matrix.target }}-amd64${{ matrix.artifact_ext }}
           mkdir -p dist
           mv shell4-${{ needs.check-trigger.outputs.version }}-${{ matrix.target }}-amd64${{ matrix.artifact_ext }} dist/
 
