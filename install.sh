@@ -36,8 +36,8 @@ else
     printf '\r(  ✓  ) ok - platform linux\n'
 fi
 
-printf '\r(  ⠙  ) downloading shell4 v0.2.0p1'
-wget -O "/tmp/shell4-installation" "https://github.com/barsik0396/shell4/releases/download/v0.2.0p1/shell4-v0.2.0p1-linux-amd64" > /dev/null 2>&1
+printf '\r(  ⠙  ) downloading shell4 v0.2.0 preview 2'
+wget -O "/tmp/shell4-installation" "https://github.com/barsik0396/shell4/releases/download/v0.2.0-preview.2/shell4-v0.2.0-preview.2-linux-amd64" > /dev/null 2>&1
 printf '\r(  ✓  ) downloaded shell4 v0.2.0 preview 1\n'
 printf '\r(  ⠹  ) moving file'
 mv /tmp/shell4-installation "$HOME/.local/bin/shell4"
