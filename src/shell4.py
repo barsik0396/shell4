@@ -38,7 +38,34 @@ def main():
             print("  bin <cmd>   run non-shell4 command")
             print("  platform    show platform")
             print("  crash       crash shell4")
+            print("  cd <path>   change directory")
+            print("  touch <file>create empty file")
+            print("  rm <file>   remove file")
+            print("  read <file> read file")
+            print("  where       where am i?")
         elif inp == "crash":
             raise CatsError.CatsError("shell4 is too good.")
+        elif inp == "cd":
+            print("arg required")
+        elif inp.startswith("cd "):
+            os.chdir(inp.removeprefix("cd "))
+            print("cd")
+        elif inp == "touch":
+            print("arg required")
+        elif inp.startswith("touch"):
+            open(inp.removeprefix("touch "), "w")   # noqa: SIM115
+            print("touch")
+        elif inp == "rm":
+            print("arg required")
+        elif inp.startswith("rm"):
+            os.remove(inp.removeprefix("rm "))
+            print("rm")
+        elif inp == "read":
+            print("arg required")
+        elif inp.startswith("read"):
+            with open(inp.removeprefix("read "), "r") as f:
+                print(f.read())
+        elif inp == "where":
+            print(os.getcwd())
         else:
             print("\x1b[31mUnknown command!\x1b[0m")
