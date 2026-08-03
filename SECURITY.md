@@ -33,7 +33,12 @@ In-scope:
 
 Out-of-scope:
 
-- Third-party services or systems outside this repository. If a vulnerability involves a dependency, report via the Security Advisory and maintainers will coordinate mitigation.
+- Third-party services or systems outside this repository.
+
+Note on dependencies:
+
+- Upstream-only dependency vulnerabilities (those that affect only the dependency project and do not change how this repository uses, packages, or distributes that dependency) should be reported to the dependency's upstream project and are considered out-of-scope for this repository.
+- If a vulnerability affects how this repository uses, packages, or distributes a dependency (for example: insecure packaging, build or integration issues, or repository-specific backports), report it here via GitHub Security Advisories. Maintainers will triage repository-related dependency issues and coordinate with upstream when needed.
 
 ## Response times
 
