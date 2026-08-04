@@ -1,6 +1,6 @@
 # shell4 changelog
 
-## v0.2.0
+## v0.2.0 [Aug 4, 2026, 7:30 PM GMT+3]
 ### added
 1. `files` command
 2. `write` command
@@ -8,7 +8,7 @@
 4. `dir` command
 5. `deldir` command
 
-## v0.2.0-preview.2
+## v0.2.0-preview.2 [Aug 3, 2026, 2:33 PM GMT+3]
 ### added
 1. telemetry
 2. basic file operations: `cd`, `where`, `touch`, `read`, `rm`
