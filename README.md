@@ -39,9 +39,9 @@ curl -fsSL https://raw.githubusercontent.com/barsik0396/shell4/refs/heads/main/i
 
 Or via single binary:
 ```bash
-wget -O ~/.local/bin/shell4 https://github.com/barsik0396/shell4/releases/download/v0.2.0p1/shell4-v0.2.0p1-linux-amd64
+wget -O ~/.local/bin/shell4 https://github.com/barsik0396/shell4/releases/download/v0.2.0-preview.2/shell4-v0.2.0-preview.2-linux-amd64
 chmod +x ~/.local/bin/shell4
 shell4    # IT WORKS!
 ```
 
-On Windows, download [single binary](https://github.com/barsik0396/shell4/releases/download/v0.2.0p1/shell4-v0.2.0p1-windows-amd64.exe). Binary works without installing.
+On Windows, download [single binary](https://github.com/barsik0396/shell4/releases/download/v0.2.0-preview.2/shell4-v0.2.0-preview.2-windows-amd64.exe). Binary works without installing.
