@@ -1,5 +1,13 @@
 # shell4 changelog
 
+## v0.2.0
+### added
+1. `files` command
+2. `write` command
+3. `write-append` command
+4. `dir` command
+5. `deldir` command
+
 ## v0.2.0-preview.2
 ### added
 1. telemetry
