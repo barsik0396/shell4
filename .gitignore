@@ -1,17 +1,22 @@
-shell4.build
-shell4.dist
-shell4.onefile-build
-shell4-*-linux-amd64
-shell4-*-windows-amd64.exe
-*.so
-*.dll
-*.dylib
-*.debug
-__pycache__
+# ─────
+# dists
+# ─────
+shell4.dist/
+shell4.build/
+shell4.onefile-build/
+shell4
+shell4-*-*
 *.deb
 *.rpm
 *.msi
-bin
-sign.sh
-*.sig
+# ────
+# bins
+# ────
+__pycache__/
+*.pyc
+# ─────
+# other
+# ─────
 shell4-release-key.gpg
+sign.sh
+venv/
