@@ -11,6 +11,9 @@ updates:
       - pip-deps
     open-pull-requests-limit: 10
     target-branch: main
+    pull-request-branch-name:
+      separator: /
+      prefix: "deps"
   - package-ecosystem: github-actions
     schedule:
       interval: daily
@@ -22,3 +25,6 @@ updates:
       - gh-deps
     open-pull-requests-limit: 10
     target-branch: main
+    pull-request-branch-name:
+      separator: /
+      prefix: "deps"
