@@ -1,7 +1,7 @@
 import os
 import platform
-import sys
 import shutil
+import sys
 
 from . import send_telemetry
 from .errors import CatsError
@@ -73,9 +73,7 @@ def main():
                 print(f.read())
         elif inp == "where":
             print(os.getcwd())
-        elif inp == "write":
-            print("arg required")
-        elif inp == "write-append":
+        elif inp == "write" or inp == "write-append":
             print("arg required")
         elif inp.startswith("write-append "):
             with open(inp.removeprefix("write-append "), "a") as f:
