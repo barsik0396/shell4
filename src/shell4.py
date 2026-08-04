@@ -1,6 +1,7 @@
 import os
 import platform
 import sys
+import shutil
 
 from . import send_telemetry
 from .errors import CatsError
@@ -43,6 +44,11 @@ def main():
             print("  rm <file>   remove file")
             print("  read <file> read file")
             print("  where       where am i?")
+            print("  write <file>write text to file")
+            print("  write-append <file>append text to file")
+            print("  files       show files in this dir")
+            print("  dir <dir>   create new directory")
+            print("  deldir <dir>remove directory")
         elif inp == "crash":
             raise CatsError.CatsError("shell4 is too good.")
         elif inp == "cd":
@@ -67,5 +73,49 @@ def main():
                 print(f.read())
         elif inp == "where":
             print(os.getcwd())
+        elif inp == "write":
+            print("arg required")
+        elif inp == "write-append":
+            print("arg required")
+        elif inp.startswith("write-append "):
+            with open(inp.removeprefix("write-append "), "a") as f:
+                print("Write text, finish using '(END)'")
+                d = ""
+                while True:
+                    d += input(">> ")
+                    if d.endswith("(END)"):
+                        d = d.removesuffix("(END)")
+                        break
+                    d += "\n"
+                f.write(d)
+            print("write+append")
+        elif inp.startswith("write "):
+            with open(inp.removeprefix("write "), "w") as f:
+                print("Write text, finish using '(END)'")
+                d = ""
+                while True:
+                    d += input(">> ")
+                    if d.endswith("(END)"):
+                        d = d.removesuffix("(END)")
+                        break
+                    d += "\n"
+                f.write(d)
+            print("write")
+        elif inp == "files":
+            print(".")
+            files = os.listdir(".")
+            for file in files:
+                print(f"|-- {file}")
+        elif inp == "dir":
+            print("arg required")
+        elif inp.startswith("dir"):
+            os.makedirs(inp.removeprefix("dir "))
+            print("dir")
+        elif inp == "deldir":
+            print("arg required")
+        elif inp.startswith("deldir"):
+            shutil.rmtree(inp.removeprefix("deldir "))
+            print("deldir")
+
         else:
             print("\x1b[31mUnknown command!\x1b[0m")
