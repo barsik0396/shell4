@@ -2,7 +2,8 @@
     "files.exclude": {
         "**/.ruff_cache": true,
         "**/__pycache__": true,
-        "**/System Volume Information": true
+        "**/System Volume Information": true,
+        "**/.pytest_cache/": true
     },
     "material-icon-theme.files.associations": {
         "THIRD_PARTY_LICENSES.txt": "license",
@@ -15,5 +16,12 @@
     "editor.smoothScrolling": true,
     "editor.cursorSmoothCaretAnimation": "on",
     "editor.cursorBlinking": "phase",
-    "terminal.integrated.defaultProfile.linux": "fish"
+    "terminal.integrated.defaultProfile.linux": "shell4",
+    "terminal.integrated.profiles.linux": {
+        "shell4": {
+            "path": "shell4",
+            "icon": "fish1-sad",
+            "color": "terminal.ansiBlue"
+        }
+    }
 }
