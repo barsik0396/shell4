@@ -1,23 +1,19 @@
-## Related Issue(s)
+## affected issues
+<!-- if there are any - mention them here -->
 
-<!-- If this PR resolves or is related to existing issues, mention them here. -->
-- Resolves: 
-- Related: 
+closes #123, fixes #456
 
-## What was changed
-
-<!-- List the main changes or added features. -->
+## what's changed
+<!-- what was changed/removed/added? -->
 - 
 - 
 - 
 
-## Checklist
+## checklist
 
-<!-- Use this checklist to confirm common PR requirements. -->
-- [ ] Documentation updated if needed
-- [ ] No sensitive data or secrets included
+- [ ] documentation updated (if needed)
+- [ ] no secrets or sensitive information present
+- [ ] tests pass without errors
 
-## Notes
-
-<!-- Add any extra information reviewers should know, such as design decisions or limitations. -->
-
+## notes
+<!-- anything else reviewers should know? (optional) -->
