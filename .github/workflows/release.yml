@@ -91,7 +91,7 @@ jobs:
           mv package.deb dist/shell4-${{ needs.check-trigger.outputs.version }}-${{ matrix.target }}-amd64.deb
 
       - name: Upload build artifact
-        uses: actions/upload-artifact@v4.0.0
+        uses: actions/upload-artifact@v7.0.1
         with:
           name: shell4-${{ matrix.target }}
           path: dist/shell4-${{ needs.check-trigger.outputs.version }}-${{ matrix.target }}-amd64${{ matrix.artifact_ext }}
@@ -99,7 +99,7 @@ jobs:
 
       - name: Upload .deb artifact
         if: matrix.target == 'linux'
-        uses: actions/upload-artifact@v4.0.0
+        uses: actions/upload-artifact@v7.0.1
         with:
           name: shell4-${{ matrix.target }}-deb
           path: dist/shell4-${{ needs.check-trigger.outputs.version }}-${{ matrix.target }}-amd64.deb
