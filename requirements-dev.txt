@@ -1,7 +1,7 @@
 -r requirements.txt
 
 pytest==9.1.0
-uv==0.10.0
+uv==0.12.1
 ruff==0.10.0
 # only for compiling
 nuitka==4.0.7
