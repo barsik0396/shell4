@@ -16,13 +16,15 @@ jobs:
     outputs:
       should_release: ${{ steps.check.outputs.should_release }}
       version: ${{ steps.check.outputs.version }}
+      is_prerelease: ${{ steps.check.outputs.is_prerelease }}
     steps:
       - name: Check if this run should produce a release
         id: check
         run: |
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
             echo "should_release=true" >> "$GITHUB_OUTPUT"
-            echo "version=${{ inputs.version }}" >> "$GITHUB_OUTPUT"
+            VERSION="${{ inputs.version }}"
+            echo "version=$VERSION" >> "$GITHUB_OUTPUT"
           else
             COMMIT_MSG=$(echo "${{ github.event.head_commit.message }}")
             if [[ "$COMMIT_MSG" == release:\ * ]]; then
@@ -31,7 +33,14 @@ jobs:
               echo "version=$VERSION" >> "$GITHUB_OUTPUT"
             else
               echo "should_release=false" >> "$GITHUB_OUTPUT"
+              VERSION=""
             fi
+          fi
+
+          if [[ "$VERSION" == *preview* || "$VERSION" == *nightly* ]]; then
+            echo "is_prerelease=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "is_prerelease=false" >> "$GITHUB_OUTPUT"
           fi
 
   build:
@@ -52,10 +61,10 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v7
+        uses: actions/checkout@v4.0.0
 
       - name: Set up Python
-        uses: actions/setup-python@v7
+        uses: actions/setup-python@v5.0.0
         with:
           python-version: "3.14"
 
@@ -75,11 +84,25 @@ jobs:
           mkdir -p dist
           mv shell4-${{ needs.check-trigger.outputs.version }}-${{ matrix.target }}-amd64${{ matrix.artifact_ext }} dist/
 
+      - name: Build .deb package (Linux)
+        if: matrix.target == 'linux'
+        run: |
+          python3 tools/makedeb.py dist/shell4-${{ needs.check-trigger.outputs.version }}-${{ matrix.target }}-amd64${{ matrix.artifact_ext }}
+          mv package.deb dist/shell4-${{ needs.check-trigger.outputs.version }}-${{ matrix.target }}-amd64.deb
+
       - name: Upload build artifact
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@v4.0.0
         with:
           name: shell4-${{ matrix.target }}
           path: dist/shell4-${{ needs.check-trigger.outputs.version }}-${{ matrix.target }}-amd64${{ matrix.artifact_ext }}
+          if-no-files-found: error
+
+      - name: Upload .deb artifact
+        if: matrix.target == 'linux'
+        uses: actions/upload-artifact@v4.0.0
+        with:
+          name: shell4-${{ matrix.target }}-deb
+          path: dist/shell4-${{ needs.check-trigger.outputs.version }}-${{ matrix.target }}-amd64.deb
           if-no-files-found: error
 
   release:
@@ -89,10 +112,10 @@ jobs:
       contents: write
     steps:
       - name: Checkout
-        uses: actions/checkout@v7
+        uses: actions/checkout@v7.0.0
 
       - name: Download all build artifacts
-        uses: actions/download-artifact@v8
+        uses: actions/download-artifact@v6.0.0
         with:
           path: artifacts
 
@@ -102,9 +125,76 @@ jobs:
           find artifacts -type f -exec cp {} release-files/ \;
           ls -la release-files
 
+      - name: Extract release notes from CHANGELOG.md
+        run: |
+          awk '
+            /^## v/ {
+              if (found) exit
+              header = $0
+              sub(/<!--.*-->/, "", header)
+              if (header !~ /\[/) { found = 1; next }
+              next
+            }
+            found { print }
+          ' CHANGELOG.md > release-notes.md
+          cat release-notes.md
+
       - name: Create GitHub Release
-        uses: softprops/action-gh-release@v3
+        uses: softprops/action-gh-release@v2.0.0
         with:
           tag_name: ${{ needs.check-trigger.outputs.version }}
           name: ${{ needs.check-trigger.outputs.version }}
+          prerelease: ${{ needs.check-trigger.outputs.is_prerelease == 'true' }}
+          body_path: release-notes.md
           files: release-files/*
+
+      - name: Set asset labels
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERSION: ${{ needs.check-trigger.outputs.version }}
+        run: |
+          set_label() {
+            local filename="$1"
+            local label="$2"
+            local asset_id
+            asset_id=$(gh api "repos/barsik0396/shell4/releases/tags/$VERSION" --jq ".assets[] | select(.name == \"$filename\") | .id")
+            if [ -n "$asset_id" ]; then
+              gh api -X PATCH "repos/barsik0396/shell4/releases/assets/$asset_id" -f label="$label"
+            else
+              echo "Asset not found: $filename"
+            fi
+          }
+
+          set_label "shell4-${VERSION}-linux-amd64" "Linux amd64"
+          set_label "shell4-${VERSION}-linux-amd64.deb" "Linux amd64 (deb)"
+          set_label "shell4-${VERSION}-windows-amd64.exe" "Windows amd64"
+
+      - name: Add release date to CHANGELOG.md
+        env:
+          VERSION: ${{ needs.check-trigger.outputs.version }}
+        run: |
+          OFFSET=$(TZ="Europe/Riga" date +%z)
+          SIGN=${OFFSET:0:1}
+          HOURS=$(echo "${OFFSET:1:2}" | sed 's/^0//')
+          RELEASE_DATE="$(TZ="Europe/Riga" date +"%b %-d, %Y, %-I:%M %p") GMT${SIGN}${HOURS}"
+
+          awk -v version="$VERSION" -v date="$RELEASE_DATE" '
+            /^## v/ && !done {
+              header = $0
+              sub(/<!--.*-->/, "", header)
+              gsub(/[ \t]+$/, "", header)
+              if (header !~ /\[/) {
+                print header " [" date "]"
+                done = 1
+                next
+              }
+            }
+            { print }
+          ' CHANGELOG.md > CHANGELOG.md.tmp
+          mv CHANGELOG.md.tmp CHANGELOG.md
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add CHANGELOG.md
+          git commit -m "add release date for ${VERSION} in changelog.md"
+          git push
