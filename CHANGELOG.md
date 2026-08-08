@@ -1,6 +1,6 @@
 # shell4 changelog
 
-## v0.3.0-nightly.1
+## v0.3.0-nightly.1 [Aug 8, 2026, 1:23 PM GMT+3]
 ### added
 1. languages support
 ### installation
