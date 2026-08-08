@@ -1,3 +1,10 @@
+from . import loadlang
+
+loadlang.load()
+global lang
+lang = loadlang.lang
+# print("welcome to \x1b[32mshell4\x1b[0m version v0.3.0-nightly.1!")
+print(lang["init.welcome"])
 import os
 import platform
 import shutil
@@ -16,12 +23,11 @@ except Exception:                     # noqa: BLE001
         f.write("meow")
 
 def main():
-    print("welcome to \x1b[32mshell4\x1b[0m version v0.2.0!")
     while True:
         inp = input("shell4# \x1b[32m")
         print("\r\x1b[0m\r", end="", flush=True)
         if inp == "exit":
-            print("Bye!")
+            print(lang["cmd.exit"])
             sys.exit()
         elif inp == "":
             pass
@@ -30,27 +36,27 @@ def main():
         elif inp == "platform":
             print(platform.platform())
         elif inp == "version":
-            print("shell4 version v0.2.0")
+            print(lang["cmd.version"])
         elif inp == "help":
-            print("Available commands:")
-            print("  help        show this help")
-            print("  exit        quit")
-            print("  version     show version")
-            print("  bin <cmd>   run non-shell4 command")
-            print("  platform    show platform")
-            print("  crash       crash shell4")
-            print("  cd <path>   change directory")
-            print("  touch <file>create empty file")
-            print("  rm <file>   remove file")
-            print("  read <file> read file")
-            print("  where       where am i?")
-            print("  write <file>write text to file")
-            print("  write-append <file>append text to file")
-            print("  files       show files in this dir")
-            print("  dir <dir>   create new directory")
-            print("  deldir <dir>remove directory")
+            print(lang["cmd.help.title"])
+            print(f"  help        {lang["cmd.help.help"]}")
+            print(f"  exit        {lang["cmd.help.exit"]}")
+            print(f"  version     {lang["cmd.help.version"]}")
+            print(f"  bin <cmd>   {lang["cmd.help.bin"]}")
+            print(f"  platform    {lang["cmd.help.platform"]}")
+            print(f"  crash       {lang["cmd.help.crash"]}")
+            print(f"  cd <path>   {lang["cmd.help.cd"]}")
+            print(f"  touch <file>{lang["cmd.help.touch"]}")
+            print(f"  rm <file>   {lang["cmd.help.rm"]}")
+            print(f"  read <file> {lang["cmd.help.read"]}")
+            print(f"  where       {lang["cmd.help.where"]}")
+            print(f"  write <file>{lang["cmd.help.write"]}")
+            print(f"  write-append <file>{lang["cmd.help.write-append"]}")
+            print(f"  files       {lang["cmd.help.files"]}")
+            print(f"  dir <dir>   {lang["cmd.help.dir"]}")
+            print(f"  deldir <dir>{lang["cmd.help.deldir"]}")
         elif inp == "crash":
-            raise CatsError.CatsError("shell4 is too good.")
+            raise CatsError.CatsError(lang["cmd.crash"])
         elif inp == "cd":
             print("arg required")
         elif inp.startswith("cd "):
@@ -116,4 +122,4 @@ def main():
             print("deldir")
 
         else:
-            print("\x1b[31mUnknown command!\x1b[0m")
+            print(f"\x1b[31m{lang["cmd.unknown"]}\x1b[0m")
