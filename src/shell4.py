@@ -1,7 +1,6 @@
 from . import loadlang
 
 loadlang.load()
-global lang
 lang = loadlang.lang
 # print("welcome to \x1b[32mshell4\x1b[0m version v0.3.0-nightly.1!")
 print(lang["init.welcome"])
