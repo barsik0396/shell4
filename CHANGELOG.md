@@ -1,5 +1,25 @@
 # shell4 changelog
 
+## v0.3.0-nightly.1
+### added
+1. languages support
+### installation
+1. download binary
+2. copy it to `~/.local/bin/shell4`
+3. install language:
+```bash
+mkdir -p ~/.shell4/config
+mkdir -p ~/.shell4/languages
+
+# for english
+wget -O "$HOME/.shell4/languages/en-US.lang" "https://raw.githubusercontent.com/barsik0396/shell4/refs/heads/main/lang/en-US.lang"
+printf "en-US" > "$HOME/.shell4/config/language"
+
+# for russian
+wget -O "$HOME/.shell4/languages/ru-RU.lang" "https://raw.githubusercontent.com/barsik0396/shell4/refs/heads/main/lang/ru-RU.lang"
+printf "ru-RU" > "$HOME/.shell4/config/language"
+```
+
 ## v0.2.0 [Aug 4, 2026, 7:30 PM GMT+3]
 ### added
 1. `files` command
