@@ -1,4 +1,5 @@
-import json, os
+import json
+import os
 
 with open(os.path.expanduser("~/.shell4/config/language"), "r") as f:
     _lang = f.read()
