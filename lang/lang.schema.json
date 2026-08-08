@@ -1,0 +1,133 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "shell4 language",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "minLength": 1,
+      "description": "you know this.",
+      "format": "uri"
+    },
+    "init.welcome": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Welcome message"
+    },
+    "cmd.help.title": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Title in help command"
+    },
+    "cmd.help.help": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Help text for 'help'"
+    },
+    "cmd.help.exit": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Help text for 'exit'"
+    },
+    "cmd.help.version": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Help text for 'version'"
+    },
+    "cmd.help.bin": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Help text for 'bin'"
+    },
+    "cmd.help.platform": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Help text for 'platform'"
+    },
+    "cmd.help.crash": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Help text for 'crash'"
+    },
+    "cmd.help.cd": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Help text for 'cd'"
+    },
+    "cmd.help.touch": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Help text for 'touch'"
+    },
+    "cmd.help.rm": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Help text for 'rm'"
+    },
+    "cmd.help.read": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Help text for 'read'"
+    },
+    "cmd.help.where": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Help text for 'where'"
+    },
+    "cmd.help.write": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Help text for 'write'"
+    },
+    "cmd.help.write-append": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Help text for 'write-append'"
+    },
+    "cmd.help.files": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Help text for 'files'"
+    },
+    "cmd.help.dir": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Help text for 'dir'"
+    },
+    "cmd.help.deldir": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Help text for 'deldir'"
+    },
+    "cmd.version": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Text for 'version' command"
+    },
+    "cmd.exit": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Text for 'exit' command"
+    },
+    "cmd.ccrash": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Text for 'crash' error"
+    },
+    "cmd.unknown": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Text for unknown command error"
+    }
+  },
+  "required": [
+    "init.welcome", "main.prompt", "cmd.help.title", "cmd.help.help",
+    "cmd.help.exit", "cmd.help.version", "cmd.help.bin",
+    "cmd.help.platform", "cmd.help.crash", "cmd.help.cd",
+    "cmd.help.touch", "cmd.help.rm", "cmd.help.read", "cmd.help.where",
+    "cmd.help.write", "cmd.help.write-append", "cmd.help.files",
+    "cmd.help.dir", "cmd.help.deldir", "cmd.version", "cmd.exit",
+    "cmd.crash", "cmd.unknown"
+  ],
+  "additionalProperties": false
+}
